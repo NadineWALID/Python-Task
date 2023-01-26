@@ -1,0 +1,82 @@
+<!DOCTYPE html>  
+<html>
+<head>
+    <title>Inventory Page</title>
+    <link rel="stylesheet" type="text/css"  href="{{url_for('static',filename='css/style1.css')}}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<body>
+<h1>Welcome To Our Inventory </h1>
+
+<div class="table-div" style="overflow-x:auto;">
+    <div class="row" style="overflow-x:auto;"> 
+        <form action="{{url_for('add_item')}}">
+            <input type="search" name="search" id="search" placeholder="Search.."> 
+            <button class="add-button">Add New Item</button>
+        </form>
+    </div>
+    
+    <table id="search_list">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        <tbody>
+        {% if items %}
+        {% for item in items %}
+        <tr>
+            <td>#{{item.Id}}</td>
+            <td>{{item.Name}}</td>
+            <td>{{item.Description}}</td>
+            <td>{{item.Quantity}}</td>
+            <td>{{item.Price}}</td>
+            <td>
+                <form  action="{{url_for('update_item',item_id=item.Id)}}">
+                    <button class="update-btn">Update</button>
+                </form>
+            </td>
+            <td>
+                <form  action="{{url_for('delete_item',item_id=item.Id)}}">
+                    <button class="delete-btn">Delete</button>
+                </form>
+            </td>
+            
+
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td>No Inventory Items</td>
+        </tr>
+        
+        {% endif %}
+        </tbody>
+    </table>
+</div>  
+<script>
+    $(document).ready(function(){
+        $('#search').keyup(function(){
+         var search = $(this).val();
+            $.ajax({
+             url:"/ajaxlivesearch",
+             type: "POST",
+             data: {'search':search},
+             success:function(items){
+              console.log('success')
+              $('#search_list').html(items);
+              $("#search_list").append(items.htmlresponse);
+             }
+           });
+         
+        });
+       
+    });
+</script>
+</body>
+</html>

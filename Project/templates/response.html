@@ -1,0 +1,50 @@
+<!DOCTYPE html>  
+<html>
+<head>
+<title>Inventory Page</title>
+<link rel="stylesheet" type="text/css"  href="{{url_for('static',filename='css/style1.css')}}"/>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Price</th>
+    </tr>
+    <tbody id="search_list">
+    {% if items %}
+    {% for item in items %}
+    <tr>
+        <td>#{{item.Id}}</td>
+        <td>{{item.Name}}</td>
+        <td>{{item.Description}}</td>
+        <td>{{item.Quantity}}</td>
+        <td>{{item.Price}}</td>
+        <td>
+            <form  action="{{url_for('update_item',item_id=item.Id)}}">
+                <button class="update-btn">Update</button>
+            </form>
+        </td>
+        <td>
+            <form  action="{{url_for('delete_item',item_id=item.Id)}}">
+                <button class="delete-btn">Delete</button>
+            </form>
+        </td>
+        
+
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        <td>No Inventory Items</td>
+    </tr>
+    
+    {% endif %}
+    </tbody>
+</table>
+</body>
+</html>

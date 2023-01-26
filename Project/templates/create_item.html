@@ -1,0 +1,36 @@
+<!DOCTYPE html>  
+<html>
+<head>
+    <title>Inventory Page</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style2-update.css')}}"/>
+</head>
+<body>
+
+    <div class="split left">
+        <div class="centered1">
+            <h1>Add a New Item</h1>
+        </div>
+      </div>
+
+    <div class="split right">
+        <div class="centered2">
+        <form method="post" action="/postitem">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required="" placeholder="Name.."><br><br>
+            
+            <label for="description">Description</label>
+            <input type="text" id="description" name="description" required="" placeholder="Description.."><br><br>
+            
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" required="" placeholder="Quantity Available.."><br><br>
+
+            <label for="price">Price</label>
+            <input type="number"  step="0.01" id="price" name="price" required="" placeholder="Price.."><br><br>
+
+            <button class="submit_item">Add New Item</button>
+        </form>
+        </div>  
+    </div>
+</body>
+</html>
